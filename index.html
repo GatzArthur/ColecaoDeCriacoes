@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Coleção de Criações</title>
+
+    <link rel="stylesheet" href="CSS/style.css" />
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo">
+                <span>&lt;/&gt;</span>
+                <h1>Coleção de Criações</h1>
+            </div>
+
+            <div class="header-actions">
+
+                <span id="badgeAdmin" class="admin-badge" style="display:none;">MODO ADMIN</span>
+
+                <button id="btnNovaCriacao" class="btn-add admin-only" onclick="abrirModal()" style="display:none;">
+                    + Nova criação
+                </button>
+
+                <button id="btnGerarArquivo" class="btn-secundario admin-only" onclick="abrirExportar()" style="display:none;">
+                    ⬇ Gerar arquivo
+                </button>
+
+                <button id="btnAdmin" class="btn-secundario" onclick="abrirLogin()">
+                    Admin
+                </button>
+
+                <button id="btnSair" class="btn-secundario admin-only" onclick="sairAdmin()" style="display:none;">
+                    Sair
+                </button>
+
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+            <div class="container">
+
+                <p class="hero-tag">MEU PORTFÓLIO</p>
+
+                <h2>
+                    Ideias que se transformaram
+                    <span>em projetos ou criações.</span>
+                </h2>
+
+                <p class="hero-description">
+                    Uma coleção dos projetos, experiências e criações
+                    que desenvolvi ao longo da minha jornada por curiosidade e estudos.
+                </p>
+
+            </div>
+        </section>
+
+
+        <section class="portfolio">
+            <div class="container">
+
+                <div class="section-header">
+                    <div>
+                        <p class="section-tag">PROJETOS</p>
+                        <h3>Minha coleção</h3>
+                    </div>
+
+                    <span id="contador">0 criações</span>
+                </div>
+
+
+                <div id="galeria" class="galeria">
+
+                    <!-- Projetos serão adicionados aqui pelo JavaScript -->
+
+                </div>
+
+
+                <div id="mensagemVazia" class="mensagem-vazia">
+
+                    <div class="empty-icon">
+                        ✦
+                    </div>
+
+                    <h3>Sua coleção está vazia</h3>
+
+                    <p id="textoVazio">
+                        Nenhuma criação foi publicada ainda.
+                    </p>
+
+                    <button id="btnAddVazio" class="btn-add-empty admin-only" onclick="abrirModal()" style="display:none;">
+                        + Adicionar criação
+                    </button>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- MODAL LOGIN ADMIN -->
+
+    <div id="modalLogin" class="modal">
+
+        <div class="modal-content">
+
+            <button class="fechar" onclick="fecharLogin()">
+                ×
+            </button>
+
+            <div class="modal-header">
+                <p class="section-tag">ÁREA RESTRITA</p>
+                <h2>Entrar como admin</h2>
+                <p>Digite a senha para liberar a edição da coleção.</p>
+            </div>
+
+            <form id="formLogin">
+
+                <div class="campo">
+                    <label for="senhaAdmin">Senha</label>
+                    <input type="password" id="senhaAdmin" placeholder="*****" required autocomplete="current-password">
+                </div>
+
+                <p id="erroLogin" style="color:#ff5c5c; font-size:13px; margin-bottom:15px; display:none;">
+                    Senha incorreta.
+                </p>
+
+                <button type="submit" class="btn-submit">
+                    Entrar
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODAL ADICIONAR -->
+
+    <div id="modal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="fechar" onclick="fecharModal()">
+                ×
+            </button>
+
+            <div class="modal-header">
+
+                <p class="section-tag">NOVA CRIAÇÃO</p>
+
+                <h2>Adicionar projeto</h2>
+
+                <p>
+                    Adicione uma imagem e conte um pouco sobre o projeto.
+                </p>
+
+            </div>
+
+
+            <form id="formProjeto">
+
+                <div class="campo">
+
+                    <label for="titulo">
+                        Título do projeto
+                    </label>
+
+                    <input
+                        type="text"
+                        id="titulo"
+                        placeholder="Ex: Sistema de gerenciamento"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="descricao">
+                        Legenda / descrição
+                    </label>
+
+                    <textarea
+                        id="descricao"
+                        placeholder="Conte um pouco sobre esse projeto..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="imagem">
+                        Imagens do projeto
+                    </label>
+
+                    <div class="upload-area">
+
+                        <input
+                            type="file"
+                            id="imagem"
+                            accept="image/*"
+                            multiple
+                            required
+                        >
+
+                        <div class="upload-content">
+
+                            <span class="upload-icon">
+                                ↑
+                            </span>
+
+                            <strong>
+                                Clique para selecionar uma ou mais imagens
+                            </strong>
+
+                            <small>
+                                PNG, JPG ou WEBP — segure Ctrl (ou Cmd) para escolher várias
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div id="previaImagens" class="previa-imagens"></div>
+
+                </div>
+
+
+                <button type="submit" class="btn-submit">
+                    Adicionar à coleção
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODAL EXPORTAR -->
+
+    <div id="modalExportar" class="modal modal-exportar">
+
+        <div class="modal-content">
+
+            <button class="fechar" onclick="fecharExportar()">
+                ×
+            </button>
+
+            <div class="modal-header">
+
+                <p class="section-tag">PUBLICAR</p>
+
+                <h2>Gerar arquivo de dados</h2>
+
+                <p>
+                    Baixe o arquivo abaixo e substitua <code>JS/projetos-data.js</code>
+                    no seu repositório. Depois faça commit e push — o GitHub Pages
+                    atualiza o site público automaticamente para todos que acessarem o link.
+                </p>
+
+            </div>
+
+            <button class="btn-submit" onclick="baixarArquivoDados()" style="margin-bottom:20px;">
+                ⬇ Baixar projetos-data.js
+            </button>
+
+            <p style="font-size:12px; color:var(--muted); margin-bottom:10px;">
+                Pré-visualização do conteúdo:
+            </p>
+
+            <div id="previaExportar" class="exportar-texto"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODAL DE IMAGEM -->
+
+    <div id="modalImagem" class="modal-imagem">
+
+        <button
+            class="fechar-imagem"
+            onclick="fecharImagem()"
+        >
+            ×
+        </button>
+
+        <button id="btnImagemAnterior" class="nav-imagem nav-imagem-prev" onclick="imagemAnterior()">
+            ‹
+        </button>
+
+        <img id="imagemGrande" src="" alt="Projeto">
+
+        <button id="btnImagemProxima" class="nav-imagem nav-imagem-next" onclick="proximaImagem()">
+            ›
+        </button>
+
+        <span id="contadorImagens" class="contador-imagens"></span>
+
+    </div>
+
+
+    <script src="JS/projetos-data.js"></script>
+    <script src="JS/script.js" defer></script>
+
+</body>
+</html>
